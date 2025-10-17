@@ -1,6 +1,5 @@
-# Increase Blue 🔵
-*Working DApp: [GitHub Pages Link]*
-
+# Increase Blue Base
+*Working DApp: 
 Simple, Immutable, Ever-Increasing Counter Smart Contract
 
 **Solidity 0.8.0+** • **License: MIT**
