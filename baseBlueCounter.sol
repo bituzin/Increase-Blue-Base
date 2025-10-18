@@ -1,6 +1,3 @@
-/**
- *Submitted for verification at basescan.org on 2025-10-16
-*/
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -50,4 +47,5 @@ contract BaseBlueCounter {
         require(index < increaseHistory.length, "Index out of bounds");
         return increaseHistory[index];
     }
+
 }
