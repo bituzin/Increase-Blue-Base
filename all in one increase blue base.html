@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increase Blue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --base-blue: #0052FF;
+            --base-blue-light: #3D7FFF;
+            --base-blue-dark: #0039CC;
+            --base-green:  #35D07F;
+            --bg: #f6faf7;
+            --card: #ffffff;
+            --muted: #6b6b6b;
+            --rounded: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        html,body{
+            height:100%; 
+            margin:0; 
+            background:var(--bg); 
+            color:#0b1720;
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--base-blue), var(--base-blue-dark));
+            color: white;
+            padding:18px 30px;
+            border-radius:0 0 12px 12px;
+            display:flex;
+            align-items:center;
+            gap:16px;
+        }
+
+        .brand { 
+            display:flex; 
+            gap:12px; 
+            align-items:center; 
+        }
+
+        .title { 
+            font-size:1.2rem; 
+            font-weight:700; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .base-symbol {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.3);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .byline { 
+            margin-left:auto; 
+            font-size:13px; 
+            font-weight: 700;
+        }
+
+        .container {
+            max-width:1000px;
+            margin: 6px auto 60px auto;
+            padding: 0 18px;
+            display:grid;
+            grid-template-columns: 1fr 420px;
+            gap:20px;
+            align-items:start;
+        }
+
+        .left, .right {
+            background:var(--card);
+            border-radius:var(--rounded);
+            padding:24px;
+            box-shadow: 0 6px 20px rgba(10,20,20,0.05);
+        }
+
+        .left h2, .right h2 { 
+            margin:0 0 16px 0; 
+            font-size:1.2rem; 
+            color: #052017;
+        }
+
+        .counter-section {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: linear-gradient(180deg,#ffffff,#fbfefb);
+            border-radius: 10px;
+            border: 1px solid rgba(11,21,20,0.06);
+        }
+
+        .counter-value {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: #052017;
+            background: linear-gradient(135deg, var(--base-blue), var(--base-blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .connect-btn, .increase-btn, .switch-btn {
+            background: linear-gradient(180deg, var(--base-blue-light), var(--base-blue));
+            color:white;
+            border:none;
+            padding:12px 20px;
+            border-radius:10px;
+            font-weight:700;
+            cursor:pointer;
+            font-size: 14px;
+            min-width: 140px;
+            transition: all 0.2s ease;
+        }
+
+        .connect-btn:hover, .increase-btn:hover, .switch-btn:hover { 
+            opacity:0.95; 
+            transform:translateY(-1px); 
+        }
+
+        .connect-btn:disabled, .increase-btn:disabled { 
+            opacity:0.6; 
+            cursor:not-allowed; 
+            transform: none;
+        }
+
+        .wallet-row { 
+            display:flex; 
+            gap:12px; 
+            align-items:center; 
+            margin-bottom:16px; 
+        }
+
+        .wallet-info {
+            font-size:13px;
+            color:var(--muted);
+            word-break:break-all;
+            background: rgba(5,32,24,0.03);
+            padding:12px;
+            border-radius:8px;
+            flex:1;
+        }
+
+        .status {
+            padding:8px 12px;
+            font-weight:600;
+            font-size:12px;
+            border-radius:999px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .status.connected { 
+            background: rgba(0,82,255,0.12); 
+            color: var(--base-blue); 
+        }
+
+        .status.disconnected { 
+            background: rgba(255,200,92,0.12); 
+            color: #b26a00; 
+        }
+
+        .contract-info {
+            background: rgba(0,82,255,0.1);
+            border: 1px solid rgba(0,82,255,0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .info-section {
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .info-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--base-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: help;
+            position: relative;
+        }
+
+        .info-tooltip {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid rgba(11,21,20,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            width: 300px;
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--muted);
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+        }
+
+        .info-icon:hover .info-tooltip {
+            display: block;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .modal h3 {
+            margin-bottom: 12px;
+            color: #052017;
+        }
+
+        .modal p {
+            color: var(--muted);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .tx-link {
+            color: var(--base-blue);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        .tx-link:hover {
+            text-decoration: underline;
+        }
+
+        .view-all-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            color: var(--base-blue);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--base-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .container { 
+                grid-template-columns: 1fr; 
+                gap: 16px; 
+            }
+            .header { 
+                padding: 14px 20px; 
+            }
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .connect-btn, .increase-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            .counter-value {
+                font-size: 3rem;
+            }
+            .info-tooltip {
+                width: 250px;
+                left: -100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-overlay" id="networkModal">
+        <div class="modal">
+            <h3>Switch to Base Mainnet</h3>
+            <p>This DApp only works on Base Mainnet. Please switch your wallet network to continue.</p>
+            <button class="switch-btn" id="switchNetworkBtn">Switch Network</button>
+        </div>
+    </div>
+
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-icon">👍</div>
+            <h3>You Got It!</h3>
+            <button class="switch-btn" id="closeSuccessModal" style="margin-top: 16px;">Close</button>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="brand">
+            <div class="title">
+                Increase Blue
+                <div class="base-symbol">BASE</div>
+            </div>
+        </div>
+        <div class="byline">by bituzin</div>
+    </div>
+
+    <div class="container">
+        <div class="left">
+            <h2>Counter</h2>
+            
+            <div class="counter-section">
+                <div>Total Increases</div>
+                <div class="counter-value" id="counterValue">0</div>
+                <div style="font-size: 12px; color: var(--muted);">Since Deployment</div>
+                
+                <div class="button-container">
+                    <button id="connectButton" class="connect-btn">Connect Wallet</button>
+                    <button id="increaseButton" class="increase-btn" disabled>Increase</button>
+                </div>
+                
+                <!-- Link do ostatniej transakcji -->
+                <a href="#" id="lastTxLink" class="tx-link" style="display: none;" target="_blank">View your transaction on Basescan</a>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <h2>Wallet Status</h2>
+                <div id="status" class="status disconnected">Not Connected</div>
+                
+                <div class="wallet-row">
+                    <div class="wallet-info" id="walletInfo" style="display: none;">
+                        <strong>Address:</strong> <span id="walletAddress"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="info-section">
+                <div class="section-header">
+                    <h2 style="margin: 0;">What is Increase Blue</h2>
+                    <div class="info-icon">
+                        i
+                        <div class="info-tooltip">
+                            Increase Blue is a simple DApp running on the Base blockchain that allows users to increment a counter through on-chain transactions. Each increase is permanently recorded on the blockchain.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-header">
+                    <h2 style="margin: 0;">How to Use</h2>
+                    <div class="info-icon">
+                        i
+                        <div class="info-tooltip">
+                            <ol style="padding-left: 16px; margin: 0;">
+                                <li>Click "Connect Wallet" to connect your Base wallet</li>
+                                <li>Once connected, use the "Increase" button to increment the counter</li>
+                                <li>Your transaction will be confirmed on the Base blockchain</li>
+                                <li>You can disconnect your wallet at any time</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contract-info" style="margin-top: 0;">
+                <strong>Contract Address:</strong><br>
+                <span id="contractAddress">0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f</span>
+                <div style="margin-top: 8px; font-size: 11px; color: var(--muted); font-weight: 600;">
+                    Deployed on Base Mainnet
+                </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <h2 style="margin: 0;">View All Transactions</h2>
+                <!-- Link do wszystkich transakcji -->
+                <a href="https://basescan.org/address/0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f" class="view-all-link" target="_blank">View all transactions on Basescan</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CONTRACT_ADDRESS = "0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f";
+        const BASE_CHAIN_ID = "0x2105";
+        const BASESCAN_URL = "https://basescan.org/tx/";
+        
+        const CONTRACT_ABI = [
+            {
+                "inputs": [],
+                "name": "increment",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getCount",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "uint256",
+                        "name": "newCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "increasedBy",
+                        "type": "address"
+                    }
+                ],
+                "name": "CounterIncreased",
+                "type": "event"
+            }
+        ];
+
+        let web3;
+        let contract;
+        let isConnected = false;
+        let walletAddress = '';
+        let lastTransactionHash = '';
+
+        const connectButton = document.getElementById('connectButton');
+        const increaseButton = document.getElementById('increaseButton');
+        const counterDisplay = document.getElementById('counterValue');
+        const walletInfo = document.getElementById('walletInfo');
+        const walletAddressSpan = document.getElementById('walletAddress');
+        const statusDiv = document.getElementById('status');
+        const contractAddressSpan = document.getElementById('contractAddress');
+        const networkModal = document.getElementById('networkModal');
+        const switchNetworkBtn = document.getElementById('switchNetworkBtn');
+        const lastTxLink = document.getElementById('lastTxLink');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+
+        contractAddressSpan.textContent = CONTRACT_ADDRESS;
+
+        function updateLastTxLink(txHash) {
+            if (txHash) {
+                lastTxLink.href = `${BASESCAN_URL}${txHash}`;
+                lastTxLink.style.display = 'block';
+                lastTxLink.textContent = 'View your transaction on Basescan';
+            } else {
+                lastTxLink.style.display = 'none';
+            }
+        }
+
+        function showSuccessModal() {
+            successModal.style.display = 'flex';
+        }
+
+        async function checkNetwork() {
+            if (window.ethereum) {
+                try {
+                    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                    if (chainId === BASE_CHAIN_ID) {
+                        networkModal.style.display = 'none';
+                        return true;
+                    } else {
+                        networkModal.style.display = 'flex';
+                        return false;
+                    }
+                } catch (error) {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        async function switchToBaseNetwork() {
+            if (!window.ethereum) return;
+            
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: BASE_CHAIN_ID }],
+                });
+                setTimeout(checkNetwork, 1000);
+            } catch (switchError) {
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: BASE_CHAIN_ID,
+                                chainName: "Base Mainnet",
+                                nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+                                rpcUrls: ["https://mainnet.base.org"],
+                                blockExplorerUrls: ["https://basescan.org/"]
+                            }],
+                        });
+                        setTimeout(checkNetwork, 1000);
+                    } catch (addError) {
+                        console.log('Error adding network');
+                    }
+                }
+            }
+        }
+
+        function initContract() {
+            if (typeof window.ethereum !== 'undefined') {
+                web3 = new Web3(window.ethereum);
+                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                return true;
+            }
+            return false;
+        }
+
+        async function loadBlockchainData() {
+            if (!contract) return;
+
+            try {
+                const counterValue = await contract.methods.getCount().call();
+                counterDisplay.textContent = counterValue;
+                
+            } catch (error) {
+                console.error('Error loading blockchain data:', error);
+                counterDisplay.textContent = '0';
+            }
+        }
+
+        async function connectWallet() {
+            try {
+                if (typeof window.ethereum === 'undefined') {
+                    alert('Please install MetaMask or a Base-compatible wallet!');
+                    return;
+                }
+
+                const correctNetwork = await checkNetwork();
+                if (!correctNetwork) {
+                    return;
+                }
+
+                if (!initContract()) {
+                    alert('Error initializing contract');
+                    return;
+                }
+
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+                
+                walletAddress = accounts[0];
+                isConnected = true;
+
+                connectButton.textContent = 'Disconnect';
+                increaseButton.disabled = false;
+                walletAddressSpan.textContent = `${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}`;
+                walletInfo.style.display = 'block';
+                statusDiv.textContent = 'Connected to Base Mainnet';
+                statusDiv.className = 'status connected';
+
+                await loadBlockchainData();
+
+            } catch (error) {
+                console.error('Connection error:', error);
+                alert('Failed to connect wallet. Please try again.');
+            }
+        }
+
+        async function increaseCounter() {
+            if (!isConnected || !contract) {
+                alert('Please connect your wallet first');
+                return;
+            }
+
+            try {
+                const correctNetwork = await checkNetwork();
+                if (!correctNetwork) {
+                    return;
+                }
+
+                increaseButton.disabled = true;
+                increaseButton.textContent = 'Processing...';
+                lastTxLink.style.display = 'none';
+
+                const accounts = await web3.eth.getAccounts();
+                
+                console.log('Sending transaction...');
+                
+                // Wyślij transakcję i poczekaj na potwierdzenie
+                const transaction = await contract.methods.increment().send({ from: accounts[0] });
+                
+                console.log('Transaction confirmed:', transaction);
+                
+                // Zapisz hash transakcji
+                lastTransactionHash = transaction.transactionHash;
+                
+                // NATYCHMIAST odśwież licznik po potwierdzeniu transakcji
+                await loadBlockchainData();
+                
+                // Pokaż link do transakcji
+                updateLastTxLink(lastTransactionHash);
+
+                // Pokaż okno potwierdzenia
+                showSuccessModal();
+
+                increaseButton.disabled = false;
+                increaseButton.textContent = 'Increase';
+
+            } catch (error) {
+                console.error('Transaction error:', error);
+                alert('Transaction failed: ' + error.message);
+                increaseButton.disabled = false;
+                increaseButton.textContent = 'Increase';
+                lastTxLink.style.display = 'none';
+            }
+        }
+
+        function disconnectWallet() {
+            isConnected = false;
+            connectButton.textContent = 'Connect Wallet';
+            increaseButton.disabled = true;
+            walletInfo.style.display = 'none';
+            statusDiv.textContent = 'Not Connected';
+            statusDiv.className = 'status disconnected';
+            counterDisplay.textContent = '0';
+            lastTxLink.style.display = 'none';
+        }
+
+        connectButton.addEventListener('click', async () => {
+            if (!isConnected) {
+                await connectWallet();
+            } else {
+                disconnectWallet();
+            }
+        });
+
+        increaseButton.addEventListener('click', increaseCounter);
+        switchNetworkBtn.addEventListener('click', switchToBaseNetwork);
+        closeSuccessModal.addEventListener('click', () => {
+            successModal.style.display = 'none';
+            // Dodatkowe odświeżenie dla pewności
+            loadBlockchainData();
+        });
+
+        if (window.ethereum) {
+            checkNetwork();
+            
+            window.ethereum.request({ method: 'eth_accounts' })
+                .then(accounts => {
+                    if (accounts.length > 0) {
+                        setTimeout(() => {
+                            initContract();
+                            connectWallet();
+                        }, 500);
+                    }
+                });
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+</body>
+</html>
