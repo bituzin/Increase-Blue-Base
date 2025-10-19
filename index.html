@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increase Blue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Web3 ?adowane PRZED naszym skryptem -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+</head>
+<body>
+    <div class="modal-overlay" id="networkModal">
+        <div class="modal">
+            <h3>Switch to Base Mainnet</h3>
+            <p>This DApp only works on Base Mainnet. Please switch your wallet network to continue.</p>
+            <button class="switch-btn" id="switchNetworkBtn">Switch Network</button>
+        </div>
+    </div>
+
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-icon">??</div>
+            <h3>You Got It!</h3>
+            <button class="switch-btn" id="closeSuccessModal" style="margin-top: 16px;">Close</button>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="brand">
+            <div class="title">
+                Increase Blue
+                <div class="base-symbol">BASE</div>
+            </div>
+        </div>
+        <div class="byline">by bituzin</div>
+    </div>
+
+    <div class="container">
+        <div class="left">
+            <h2>Counter</h2>
+            
+            <div class="counter-section">
+                <div>Total Increases</div>
+                <div class="counter-value" id="counterValue">0</div>
+                <div style="font-size: 12px; color: var(--muted);">Since Deployment</div>
+                
+                <div class="button-container">
+                    <button id="connectButton" class="connect-btn">Connect Wallet</button>
+                    <button id="increaseButton" class="increase-btn" disabled>Increase</button>
+                </div>
+                
+                <a href="#" id="lastTxLink" class="tx-link" style="display: none;" target="_blank">View your transaction on Basescan</a>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <h2>Wallet Status</h2>
+                <div id="status" class="status disconnected">Not Connected</div>
+                
+                <div class="wallet-row">
+                    <div class="wallet-info" id="walletInfo" style="display: none;">
+                        <strong>Address:</strong> <span id="walletAddress"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="info-section">
+                <div class="section-header">
+                    <h2 style="margin: 0;">What is Increase Blue</h2>
+                    <div class="info-icon">
+                        i
+                        <div class="info-tooltip">
+                            Increase Blue is a simple DApp running on the Base blockchain that allows users to increment a counter through on-chain transactions. Each increase is permanently recorded on the blockchain.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-header">
+                    <h2 style="margin: 0;">How to Use</h2>
+                    <div class="info-icon">
+                        i
+                        <div class="info-tooltip">
+                            <ol style="padding-left: 16px; margin: 0;">
+                                <li>Click "Connect Wallet" to connect your Base wallet</li>
+                                <li>Once connected, use the "Increase" button to increment the counter</li>
+                                <li>Your transaction will be confirmed on the Base blockchain</li>
+                                <li>You can disconnect your wallet at any time</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contract-info" style="margin-top: 0;">
+                <strong>Contract Address:</strong><br>
+                <span id="contractAddress">0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f</span>
+                <div style="margin-top: 8px; font-size: 11px; color: var(--muted); font-weight: 600;">
+                    Deployed on Base Mainnet
+                </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <h2 style="margin: 0;">View All Transactions</h2>
+                <a href="https://basescan.org/address/0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f" class="view-all-link" target="_blank">View all transactions on Basescan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nasz skrypt ?adowany PO Web3 -->
+    <script src="script.js"></script>
+</body>
+</html>
