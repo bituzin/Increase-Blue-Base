@@ -19,6 +19,25 @@ Increase Blue is an extremely simple yet powerful smart contract that implements
 📊 **Full History** - Complete record of every increase with timestamps  
 🔍 **Transparent** - All transactions publicly verifiable on BaseScan  
 
+20/10.2025 Update: Added Time Tracking Features (baseBlueCounter v0.2.sol)
+
+1. lastIncrementTime (public variable)
+Purpose: Tracks the exact timestamp of the last counter increment
+Returns: Unix timestamp (uint256) of when the counter was last increased
+Usage: Directly accessible public variable showing when the last interaction occurred
+
+2. getTimeSinceLastIncrement() (public view function)
+Purpose: Calculates real-time duration since the last increment
+Returns: Number of seconds (uint256) elapsed since last increase
+Usage: Provides live countdown showing how long the counter has been idle
+
+Benefits:
+📊 Real-time monitoring - See exactly when the counter was last used
+⏰ Activity tracking - Monitor community engagement patterns
+🔄 Live updates - Frontend can display "X seconds/minutes since last increase"
+📈 Analytics ready - Enables time-based statistics and visualizations
+
+
 ## 📦 Contract Interface
 ```solidity
 // ONLY function that modifies state
@@ -35,3 +54,4 @@ function getIncreaseHistoryCount() public view returns (uint256)
 
 // Get specific increase record
 function getIncreaseRecord(uint256 index) public view returns (IncreaseRecord memory)
+
