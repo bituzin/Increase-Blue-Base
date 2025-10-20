@@ -19,6 +19,11 @@ Increase Blue is an extremely simple yet powerful smart contract that implements
 📊 **Full History** - Complete record of every increase with timestamps  
 🔍 **Transparent** - All transactions publicly verifiable on BaseScan  
 
+Working DApp:
+
+https://bituzin.github.io/Increase-Blue-Base       
+https://increase-blue-base.vercel.app
+
 20/10.2025 Update: Added Time Tracking Features (baseBlueCounter v0.2.sol)
 
 1. lastIncrementTime (public variable)
