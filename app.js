@@ -208,21 +208,16 @@ async function increaseCounter() {
         
         console.log('Sending transaction...');
         
-        // Wyślij transakcję i poczekaj na potwierdzenie
         const transaction = await contract.methods.increment().send({ from: accounts[0] });
         
         console.log('Transaction confirmed:', transaction);
         
-        // Zapisz hash transakcji
         lastTransactionHash = transaction.transactionHash;
         
-        // NATYCHMIAST odśwież licznik po potwierdzeniu transakcji
         await loadBlockchainData();
         
-        // Pokaż link do transakcji
         updateLastTxLink(lastTransactionHash);
 
-        // Pokaż okno potwierdzenia
         showSuccessModal();
 
         increaseButton.disabled = false;
@@ -260,7 +255,6 @@ increaseButton.addEventListener('click', increaseCounter);
 switchNetworkBtn.addEventListener('click', switchToBaseNetwork);
 closeSuccessModal.addEventListener('click', () => {
     successModal.style.display = 'none';
-    // Dodatkowe odświeżenie dla pewności
     loadBlockchainData();
 });
 
