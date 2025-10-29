@@ -1,62 +1,45 @@
-# Increase Blue Base
-*Working DApp: 
-Simple, Immutable, Ever-Increasing Counter Smart Contract
+# Increase Blue Base v2 – React & Reown + Wagmi AppKit
 
-**Solidity 0.8.0+** • **License: MIT**
+Rebuilt version of the original Increase Blue DApp (Base Mainnet), previously written in vanilla JavaScript, now in React.
 
-Deployed and Verified on **Base** `0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f`
+## Technologies
+- **React** (v18.3.1)
+- **Reown AppKit** (v1.8.10)
+- **Reown AppKit Wagmi Adapter** (v1.8.10)
+- **Web3.js** (v4.16.0)
+- **Vite** (v6.4.1)
 
-## 📖 Overview
-Increase Blue is an extremely simple yet powerful smart contract that implements a permanently increasing counter on the Base blockchain. Once deployed, the counter can only move forward - it can never be decreased, reset, or modified by anyone.
+## Overview
+This project is a new, improved version of Increase Blue Base:
+- Fully rewritten in React (instead of vanilla JS)
+- Integrated with Reown AppKit – multi-wallet support (WalletConnect, MetaMask, Coinbase, Trust Wallet, etc.)
+- Wagmi Adapter for modern hooks and wallet management
+- Full compatibility with Base Mainnet
+- Clean, responsive interface
 
-## 🎯 Key Features
-✅ **Only Increases** - Single `increment()` function that adds +1  
-❌ **No Decrease** - Absolutely no way to subtract from the counter  
-❌ **No Reset** - Counter can never return to zero  
-❌ **No Owner** - No administrative privileges or special access  
-❌ **No Parameters** - Fixed +1 increment, no arbitrary values  
-🔒 **Immutable** - Once deployed, behavior cannot be changed  
-📊 **Full History** - Complete record of every increase with timestamps  
-🔍 **Transparent** - All transactions publicly verifiable on BaseScan  
+## Functionality
 
-Working DApp:
+Increase Blue Base v2 is a simple DApp based on the following contract:
 
-https://bituzin.github.io/Increase-Blue-Base       
-https://increase-blue-base.vercel.app
+**Increase Blue Base**
+*Working DApp: Simple, Immutable, Ever-Increasing Counter Smart Contract*
 
-20/10.2025 Update: Added Time Tracking Features (baseBlueCounter v0.2.sol)
+- Solidity 0.8.0+ • License: MIT
+- Deployed and Verified on Base: `0x78776b0d6185D97Ca9a9A822bf1E192e3B44307f`
 
-1. lastIncrementTime (public variable)
-Purpose: Tracks the exact timestamp of the last counter increment
-Returns: Unix timestamp (uint256) of when the counter was last increased
-Usage: Directly accessible public variable showing when the last interaction occurred
+### Key Contract Features
+- ✅ Only increases – the `increment()` function adds +1
+- ❌ No decrease – you cannot subtract from the counter
+- ❌ No reset – the counter never returns to zero
+- ❌ No owner – no admin privileges
+- ❌ No parameters – always +1
+- 🔒 Immutable – behavior cannot be changed after deployment
+- 🔍 Transparent – everything visible on BaseScan
 
-2. getTimeSinceLastIncrement() (public view function)
-Purpose: Calculates real-time duration since the last increment
-Returns: Number of seconds (uint256) elapsed since last increase
-Usage: Provides live countdown showing how long the counter has been idle
+### Contract Interface
+- `function increment() public` – only function that modifies state
+- `function getCount() public view returns (uint256)` – current counter value
+- `function getIncreaseHistoryCount() public view returns (uint256)` – total number of increases
+- `function getIncreaseRecord(uint256 index) public view returns (IncreaseRecord memory)` – details of a specific increase
 
-Benefits:
-📊 Real-time monitoring - See exactly when the counter was last used
-⏰ Activity tracking - Monitor community engagement patterns
-🔄 Live updates - Frontend can display "X seconds/minutes since last increase"
-📈 Analytics ready - Enables time-based statistics and visualizations
-
-
-## 📦 Contract Interface
-```solidity
-// ONLY function that modifies state
-function increment() public
-
-// View current count
-function getCount() public view returns (uint256)
-
-// Get complete increase history
-function getIncreaseHistory() public view returns (IncreaseRecord[] memory)
-
-// Get total number of increases
-function getIncreaseHistoryCount() public view returns (uint256)
-
-// Get specific increase record
-function getIncreaseRecord(uint256 index) public view returns (IncreaseRecord memory)
 
